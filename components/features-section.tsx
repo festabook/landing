@@ -1,5 +1,7 @@
 "use client"
 
+import Image from "next/image"
+import { useState } from "react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 const features = [
@@ -8,36 +10,47 @@ const features = [
     title: "우리 학교 축제 소식,\n여기 다 모여있어요",
     description:
       "가고 싶은 학교, 일일이 찾기 힘드셨죠?\n이름만 입력하면 전국 대학 축제 정보를 빠짐없이 찾아드릴게요.",
+    imageSrc: "/images/features/festival-search.png",
+    imageAlt: "축제 검색 기능 이미지",
   },
   {
     badge: "포스터&라인업",
     title: "궁금했던 라인업,\n헤매지 말고 한눈에 봐요",
     description:
       "더 이상 SNS를 헤매지 않아도 괜찮아요.\n올해는 누가 오는지, 어떤 포스터가 떴는지 홈 화면에서 편하게 확인하세요.",
+    imageSrc: "/images/features/poster-lineup.png",
+    imageAlt: "포스터와 라인업 이미지",
   },
   {
     badge: "지도",
     title: "부스부터 푸드트럭까지,\n지도 보면서 편하게 찾아가요",
     description:
       "주점은 어디고 푸드트럭은 어디 있지?\n넓은 축제장에서 길 잃지 않도록 위치를 지도 위에 쏙 담아두었어요.",
+    imageSrc: "/images/features/festival-map.png",
+    imageAlt: "축제 지도 기능 이미지",
   },
   {
     badge: "일정",
     title: "지금 진행 중인 공연,\n실시간 일정으로 바로 확인해요",
     description:
       "좋아하는 가수의 순서, 놓치면 아쉽잖아요.\n지금 공연부터 다음 순서까지 타임라인으로 미리 확인하고 축제를 마음껏 즐겨봐요.",
+    imageSrc: "/images/features/live-schedule.png",
+    imageAlt: "실시간 일정 기능 이미지",
   },
   {
     badge: "공지사항&FAQ",
     title: "중요한 소식,\n실시간 알림으로 챙겨드려요",
     description:
       "지연이나 취소 소식, 많이 기다리셨죠?\n중요한 공지는 푸시 알림으로 톡 보내드릴게요.\n모르는 게 생기면 FAQ를 찾아주세요.",
+    imageSrc: "/images/features/notices-faq.png",
+    imageAlt: "공지사항과 FAQ 이미지",
   },
 ]
 
 function FeatureCard({ feature, index }: { feature: typeof features[0]; index: number }) {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.3 })
   const isImageLeft = index % 2 === 0
+  const [imageError, setImageError] = useState(false)
 
   return (
     <div
@@ -48,11 +61,23 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
     >
       {/* Image Placeholder */}
       <div className="w-full lg:w-1/2">
-        <div className="bg-muted/50 rounded-2xl aspect-[4/3] flex items-center justify-center border border-border">
-          <span className="text-muted-foreground text-sm">
-            이미지가 들어갈 영역
-          </span>
-        </div>
+        {imageError ? (
+          <div className="bg-muted/50 rounded-2xl aspect-[4/3] flex flex-col items-center justify-center px-6">
+            <span className="text-muted-foreground text-sm">이미지 파일을 넣어주세요</span>
+            <code className="text-xs text-muted-foreground mt-2">{feature.imageSrc}</code>
+          </div>
+        ) : (
+          <div className="bg-muted/20 rounded-2xl aspect-[4/3] overflow-hidden">
+            <Image
+              src={feature.imageSrc}
+              alt={feature.imageAlt}
+              width={1200}
+              height={900}
+              className="w-full h-full object-cover"
+              onError={() => setImageError(true)}
+            />
+          </div>
+        )}
       </div>
 
       {/* Content */}
