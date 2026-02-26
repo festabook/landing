@@ -56,7 +56,7 @@ export function Footer() {
               </svg>
             </Link>
             <Link 
-              href="mailto:festabook2025@gmail.com"
+              href="mailto:admin@festabook.app"
               className="w-10 h-10 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors"
               aria-label="Email"
             >

@@ -49,11 +49,11 @@ export function ContactSection({ onOpenContactForm }: ContactSectionProps) {
                   <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
                 <Link 
-                  href="mailto:festabook2025@gmail.com"
+                  href="mailto:admin@festabook.app"
                   className="flex items-center gap-3 text-neutral-300 hover:text-white transition-colors group"
                 >
                   <Mail className="w-5 h-5" />
-                  <span>festabook2025@gmail.com</span>
+                  <span>admin@festabook.app</span>
                   <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
                 <Link 
