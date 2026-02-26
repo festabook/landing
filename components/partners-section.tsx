@@ -1,29 +1,75 @@
 "use client"
 
+import Image from "next/image"
+import { useMemo, useState } from "react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+
+type Partner = {
+  university: string
+  logoBasePath: string
+  logoExt?: "png" | "jpg" | "jpeg" | "webp"
+}
+
+function PartnerLogoCard({ partner }: { partner: Partner }) {
+  const candidates = useMemo(
+    () =>
+      partner.logoExt
+        ? [`${partner.logoBasePath}.${partner.logoExt}`]
+        : [
+            `${partner.logoBasePath}.png`,
+            `${partner.logoBasePath}.jpg`,
+            `${partner.logoBasePath}.jpeg`,
+            `${partner.logoBasePath}.webp`,
+          ],
+    [partner.logoBasePath, partner.logoExt],
+  )
+  const [imageIndex, setImageIndex] = useState(0)
+  const imageSrc = candidates[imageIndex]
+  const isFailed = imageIndex >= candidates.length
+
+  return (
+    <div className="w-full h-16 sm:h-20">
+      <div className="w-full h-full overflow-hidden">
+        {isFailed ? (
+          <div className="w-full h-full bg-muted/30 rounded-lg" />
+        ) : (
+          <Image
+            src={imageSrc}
+            alt={`${partner.university} 로고`}
+            width={500}
+            height={180}
+            className="w-full h-full object-contain"
+            onError={() => setImageIndex((prev) => prev + 1)}
+          />
+        )}
+      </div>
+    </div>
+  )
+}
 
 export function PartnersSection() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.3 })
-  const festivals = [
+  const partners: Partner[] = [
     {
       university: "안산대학교",
-      festival: "2025 안산대학교 석학제 : BLUEMOON",
+      logoBasePath: "/images/universities/ansan",
     },
     {
       university: "우석대학교",
-      festival: "2025 우석대학교 대동제 Next Page : 기대와 펼쳐질 이야기",
+      logoBasePath: "/images/universities/woosuk",
+      logoExt: "jpg",
     },
     {
       university: "차 의과학대학교",
-      festival: "2025 차 의과학대학교 현암제 : 월야청춘(月夜靑春)",
+      logoBasePath: "/images/universities/cha",
     },
     {
       university: "한서대학교",
-      festival: "2025 한서대학교 자미원 대동제 : Green Light",
+      logoBasePath: "/images/universities/hanseo",
     },
     {
       university: "강릉원주대학교",
-      festival: "2025 Make a Wish : 유성에 담은 소원",
+      logoBasePath: "/images/universities/gwnu",
     },
   ]
 
@@ -40,12 +86,9 @@ export function PartnersSection() {
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-12 items-center">
-          {festivals.map(({ university, festival }) => (
-            <div
-              key={university}
-              className="min-h-24 sm:min-h-28 px-2 flex flex-col items-center justify-center text-center"
-            >
-              <p className="text-xl sm:text-xl font-semibold text-foreground">{university}</p>
+          {partners.map((partner) => (
+            <div key={partner.university} className="w-full">
+              <PartnerLogoCard partner={partner} />
             </div>
           ))}
         </div>
