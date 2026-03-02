@@ -8,9 +8,20 @@ type Partner = {
   university: string
   logoBasePath: string
   logoExt?: "png" | "jpg" | "jpeg" | "webp"
+  textOnly?: boolean
 }
 
 function PartnerLogoCard({ partner }: { partner: Partner }) {
+  if (partner.textOnly) {
+    return (
+      <div className="w-full h-10 sm:h-14 lg:h-20 flex items-center justify-center rounded-lg bg-muted/20 px-2">
+        <span className="text-sm sm:text-lg lg:text-lg font-semibold text-foreground text-center">
+          {partner.university}
+        </span>
+      </div>
+    )
+  }
+
   const candidates = useMemo(
     () =>
       partner.logoExt
@@ -70,6 +81,7 @@ export function PartnersSection() {
     {
       university: "강릉원주대학교",
       logoBasePath: "/images/universities/gwnu",
+      textOnly: true,
     },
   ]
 
