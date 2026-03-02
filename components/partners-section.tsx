@@ -28,7 +28,7 @@ function PartnerLogoCard({ partner }: { partner: Partner }) {
   const isFailed = imageIndex >= candidates.length
 
   return (
-    <div className="w-full h-16 sm:h-20">
+    <div className="w-full h-10 sm:h-14 lg:h-20">
       <div className="w-full h-full overflow-hidden">
         {isFailed ? (
           <div className="w-full h-full bg-muted/30 rounded-lg" />
@@ -38,7 +38,7 @@ function PartnerLogoCard({ partner }: { partner: Partner }) {
             alt={`${partner.university} 로고`}
             width={500}
             height={180}
-            className="w-full h-full object-contain"
+            className="mx-auto w-auto h-full max-w-full object-contain"
             onError={() => setImageIndex((prev) => prev + 1)}
           />
         )}
@@ -85,9 +85,9 @@ export function PartnersSection() {
           2025년 9월 첫 만남 이후, 5개 대학교와 함께 했어요
         </h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-12 items-center">
+        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-x-6 gap-y-8 lg:max-w-none lg:grid lg:grid-cols-5 lg:gap-x-8 lg:gap-y-12">
           {partners.map((partner) => (
-            <div key={partner.university} className="w-full">
+            <div key={partner.university} className="w-[42%] max-w-[220px] lg:w-full lg:max-w-none">
               <PartnerLogoCard partner={partner} />
             </div>
           ))}
