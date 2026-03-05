@@ -62,6 +62,10 @@ export function PartnersSection() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.3 })
   const partners: Partner[] = [
     {
+      university: "포스텍대학교",
+      logoBasePath: "/images/universities/postech",
+    },
+    {
       university: "안산대학교",
       logoBasePath: "/images/universities/ansan",
     },
@@ -89,15 +93,15 @@ export function PartnersSection() {
     <section className="py-24 bg-background">
       <div
         ref={ref}
-        className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center transition-all duration-700 ease-out ${
+        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center transition-all duration-700 ease-out ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
         }`}
       >
         <h2 className="text-3xl sm:text-4xl font-bold text-center text-foreground mb-14">
-          2025년 9월 첫 만남 이후, 5개 대학교와 함께 했어요
+          2025년 9월 첫 만남 이후, 6개 대학교와 함께 했어요
         </h2>
 
-        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-x-6 gap-y-8 lg:max-w-none lg:grid lg:grid-cols-5 lg:gap-x-8 lg:gap-y-12">
+        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-x-6 gap-y-8 lg:max-w-none lg:grid lg:grid-cols-6 lg:gap-x-8 lg:gap-y-12">
           {partners.map((partner) => (
             <div key={partner.university} className="w-[42%] max-w-[220px] lg:w-full lg:max-w-none">
               <PartnerLogoCard partner={partner} />
